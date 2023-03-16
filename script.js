@@ -1,3 +1,13 @@
-import * as anim from './src/animator.js'
+let sqaure = new Animat("sqaure", ["./img/Black_Square.png", "./img/Black_Circle.png"])
 
-anim
+let ani = new Animator([sqaure])
+
+ani.speed = 2000;
+
+const main = () => {
+    ani.runAnimation()
+    
+    window.requestAnimationFrame(main)
+}
+
+window.requestAnimationFrame(main)
