@@ -32,7 +32,7 @@ const loadImage = (path) => {
     return img 
 }; 
 
-class Animat {
+class Animate {
     images = [];
     name = ''
 
@@ -52,6 +52,7 @@ class Animat {
 class Animator {
     animations = []
     names = []
+    /**@type {Animate} */
     currentAnimation
 
     speed = 500
@@ -71,13 +72,19 @@ class Animator {
     }
 
     runAnimation() {
+
         const update = () => {
-            this.currentAnimation.images.forEach((image) => {
-                setTimeout(() => {
+            let image_count = 0;
+            do {
+                let image = this.currentAnimation.images[image_count];
+                setTimeout(async () => {
+                    console.log("start anim");
                     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
                     ctx.drawImage(image, window_size.width/2-image.width/2, window_size.height/2-image.height/2);
+                    console.log("end anim");
+                    image_count++;
                 }, this.speed);
-            });
+            } while (!(image_count > this.currentAnimation.images.length));
 
             requestAnimationFrame(update);
         }
